@@ -1,4 +1,5 @@
-(function () {
+(function () 
+{
   "use strict";
 
   /**
@@ -168,19 +169,24 @@
   new PureCounter();
 })();
 
+
 // kode javascript untuk menghitung dan menampilkan hasil di html
 
 // Mendapatkan elemen-elemen input dan hasil
+//vo
 var v0 = document.getElementById("v0");
+//angle atau sudut
 var a = document.getElementById("a");
+//get time based on check box
 var t = document.getElementById("t-checkbox");
 var xmax = document.getElementById("xmax-checkbox");
+var hmax = document.getElementById("hmax-checkbox");
 var jawabButton = document.getElementById("jawab");
 var hasil = document.getElementById("hasil");
 
 jawabButton.addEventListener("click", tampilkanHasil);
 
-// Fungsi untuk menghitung waktu
+// Fungsi untuk menghitung waktu tempuh
 function hitungWaktu() {
   // Mengubah nilai input ke dalam radian dan meter per detik
   var v0y = v0.value * Math.sin((a.value * Math.PI) / 180);
@@ -220,6 +226,20 @@ function hitungJarak() {
   }
 }
 
+//fungsi menghitung ketinggian maksimum
+function maxH ()
+{
+  //H = voy^2 / 2g
+  let voy = v0.value * Math.sin((a.value * Math.PI) / 180);
+  //output = voy * sin (a radian)
+  let sqrt = Math.pow(voy, 2);
+  // voy^2
+
+  let g = 10;
+  return sqrt/(2 * g);
+  //voy^2 / 2g
+}
+
 // Fungsi untuk menampilkan hasil di HTML
 function tampilkanHasil() {
   // Mengosongkan elemen hasil
@@ -245,7 +265,13 @@ function tampilkanHasil() {
       "x = " + v0.value + " * cos(" + a.value + ") * " + hitungWaktu() + "<br>";
     p.innerHTML += "x = " + jarak + " meter <br><br>";
   }
-
+  
+  // Jika checkbox hmax ditandai, maka menampilkan proses dan jawaban untuk jarak
+  if (hmax.checked) {
+    p.innerHTML += "Hmax = voy^2 / 2 * g" + "<br>";
+    p.innerHTML += "Hmax = (" + v0.value + "* sin(" + a.value + ")" + ")^2" + " / 2 * 10" + "<br>";
+    p.innerHTML += "Hmax = " + maxH() + " meter";
+  }
   // Menambahkan elemen p ke dalam elemen hasil
   hasil.appendChild(p);
 }
